@@ -2,7 +2,7 @@ Name: MightyLuck
 
 Project: Portfolio
 
-Live Link: (add your hosted URL here)
+Live Link: (https://github.com/Glucksspiel/MightyLuck)
 
 Tech Used: HTML / CSS / JavaScript
 
