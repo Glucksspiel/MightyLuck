@@ -19,4 +19,4 @@ Challenges & Fixes:
 Page flickered wrong theme on load because JS ran too late.
 Moved critical theme setting code to an inline script in the <head> to load the correct theme instantly.
 
-Next Step Ideas: (e.g. add contact form handling or project filters)
+Next Step Ideas: I would like to improve design and add some more features but for now i dont have anything in my mind
