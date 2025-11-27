@@ -1,26 +1,19 @@
 Name: MightyLuck
 
-
 Project: Portfolio
 
+Live Link: (add your hosted URL here)
 
-Live Link:
+Tech Used: HTML / CSS / JavaScript
 
+Goal: A website that presents my personal portfolio and links to sample projects.
 
-Tech Used: HTML / CSS / JS
+Features:
+- Light and Dark theme toggle (persists the user’s preference across visits)
+- Project images link to GitHub project pages when clicked
 
+Screenshots: (insert 2–3 images showing Light and Dark mode)
 
-Goal: A webstie that present's my personal portfolio
+Challenges & Fixes: (write 2–3 sentences about issues you encountered and how you resolved them)
 
-
-Features: Dark mode/Light mode 
-images that after clik on it takes user to github with presented project
-
-
-Screenshots: (insert 2–3)
-
-
-Challenges & Fixes: (2–3 sentences)
-
-
-Next Step Ideas: (1 sentence)
+Next Step Ideas: (e.g. add contact form handling or project filters)
