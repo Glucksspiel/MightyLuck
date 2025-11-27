@@ -5,24 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <style>
+        :root {
+            /* Light theme variables (defaults) */
+            --bg: #ffffff;
+            --text: #222222;
+            --muted: #666666;
+            --header-bg: #333333;
+            --nav-bg: #555555;
+            --accent: #0b84ff;
+            --card-border: #dddddd;
+            --footer-bg: #333333;
+            --transition: 200ms ease-in-out;
+        }
+
+        /* Dark theme overrides when data-theme="dark" set on <html> */
+        html[data-theme="dark"] {
+            --bg: #0b0b0d;
+            --text: #e6eef6;
+            --muted: #9aa7b1;
+            --header-bg: #0f1720;
+            --nav-bg: #16202a;
+            --accent: #59a6ff;
+            --card-border: #22303a;
+            --footer-bg: #0f1720;
+        }
+
+        /* Respect system preference initially when there is no explicit setting */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme]) {
+                --bg: #0b0b0d;
+                --text: #e6eef6;
+                --muted: #9aa7b1;
+                --header-bg: #0f1720;
+                --nav-bg: #16202a;
+                --accent: #59a6ff;
+                --card-border: #22303a;
+                --footer-bg: #0f1720;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        html, body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            transition: background var(--transition), color var(--transition);
+        }
+
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
         }
+
         header {
-            background-color: #333;
-            color: #fff;
+            background-color: var(--header-bg);
+            color: var(--text);
             padding: 1rem;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
         nav {
-            background-color: #555;
+            background-color: var(--nav-bg);
             padding: 1rem;
         }
         nav a {
@@ -40,14 +90,38 @@
             padding: 1rem;
             border: 1px solid #ddd;
             border-radius: 5px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border-color: var(--card-border);
+            transition: background var(--transition), border-color var(--transition);
         }
         footer {
-            background-color: #333;
-            color: #fff;
+            background-color: var(--footer-bg);
+            color: var(--text);
             text-align: center;
             padding: 1rem;
             margin-top: 2rem;
         }
+
+        /* theme toggle */
+        .theme-toggle {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 0.35rem 0.6rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: background var(--transition), color var(--transition), border-color var(--transition);
+        }
+
+        .theme-toggle:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .theme-toggle svg { width: 1rem; height: 1rem; display:block; }
     </style>
 </head>
 <body>
