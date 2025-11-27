@@ -12,8 +12,11 @@ Features:
 - Light and Dark theme toggle (persists the user’s preference across visits)
 - Project images link to GitHub project pages when clicked
 
-Screenshots: (insert 2–3 images showing Light and Dark mode)
+Screenshots: 
 
-Challenges & Fixes: (write 2–3 sentences about issues you encountered and how you resolved them)
+Challenges & Fixes: 
+
+Page flickered wrong theme on load because JS ran too late.
+Moved critical theme setting code to an inline script in the <head> to load the correct theme instantly.
 
 Next Step Ideas: (e.g. add contact form handling or project filters)
