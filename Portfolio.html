@@ -153,5 +153,77 @@
     <footer>
         <p>&copy; 2024 My Portfolio</p>
     </footer>
+    <script>
+        (function () {
+            const storageKey = 'theme-preference';
+            const htmlEl = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+            const label = document.getElementById('theme-label');
+            const icon = document.getElementById('theme-icon');
+
+            function setTheme(theme, persist = true) {
+                if (!theme) {
+                    htmlEl.removeAttribute('data-theme');
+                } else {
+                    htmlEl.setAttribute('data-theme', theme);
+                }
+
+                // Update UI
+                const isDark = theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (toggle) toggle.setAttribute('aria-pressed', String(isDark));
+                if (label) label.textContent = isDark ? 'Dark' : 'Light';
+
+                // update icon path (simple swap)
+                if (icon) {
+                    icon.innerHTML = isDark
+                        ? '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />'
+                        : '<path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.3 6.3l-1.4-1.4M7.1 6.1L5.7 4.7m12.6 0l-1.4 1.4M7.1 17.9l-1.4 1.4M12 7a5 5 0 100 10 5 5 0 000-10z" />';
+                }
+
+                if (persist) {
+                    try {
+                        localStorage.setItem(storageKey, theme || '');
+                    } catch (e) {
+                        /* ignore */
+                    }
+                }
+            }
+
+            function loadTheme() {
+                try {
+                    const stored = localStorage.getItem(storageKey);
+                    if (stored === 'light' || stored === 'dark') return stored;
+                } catch (e) {
+                    // ignore storage errors
+                }
+
+                // fallback to system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+                return 'light';
+            }
+
+            // Initialize theme (explicit saved choice takes precedence)
+            const initial = loadTheme();
+            setTheme(initial, false);
+
+            // toggle handler
+            if (toggle) toggle.addEventListener('click', function () {
+                const current = htmlEl.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                const next = current === 'dark' ? 'light' : 'dark';
+                setTheme(next, true);
+            });
+
+            // Keep track of system changes only if user hasn't saved a preference
+            try {
+                const saved = localStorage.getItem(storageKey);
+                if (!saved && window.matchMedia) {
+                    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+                    mq.addEventListener ? mq.addEventListener('change', () => setTheme(mq.matches ? 'dark' : 'light', false)) : mq.addListener(() => setTheme(mq.matches ? 'dark' : 'light', false));
+                }
+            } catch (e) {
+                // if storage isn't available, do nothing
+            }
+        })();
+    </script>
 </body>
 </html>
