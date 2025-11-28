@@ -4,43 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Light theme variables (defaults) */
-            --bg: #ffffff;
-            --text: #222222;
-            --muted: #666666;
-            --header-bg: #333333;
-            --nav-bg: #555555;
-            --accent: #0b84ff;
-            --card-border: #dddddd;
-            --footer-bg: #333333;
-            --transition: 200ms ease-in-out;
+            --bg: #f4f7f6; /* Very Light Gray/Off-White */
+            --text: #1d2024; /* Near Black */
+            --muted: #5e6b7c; /* Slate Gray */
+            --header-bg: #ffffff; /* White Header */
+            --nav-bg: #1d2024; /* Dark Nav */
+            --nav-link: #ffffff;
+            --accent: #2e7bff; /* Bright Blue */
+            --card-bg: #ffffff;
+            --card-border: #e0e6eb; /* Light Border */
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --footer-bg: #1d2024; /* Dark Footer */
+            --transition: 300ms ease-in-out;
         }
 
         /* Dark theme overrides when data-theme="dark" set on <html> */
         html[data-theme="dark"] {
-            --bg: #0b0b0d;
-            --text: #e6eef6;
-            --muted: #9aa7b1;
-            --header-bg: #0f1720;
-            --nav-bg: #16202a;
-            --accent: #59a6ff;
-            --card-border: #22303a;
-            --footer-bg: #0f1720;
+            --bg: #0f172a; /* Dark Blue-Gray Background */
+            --text: #e2e8f0; /* Off-White Text */
+            --muted: #94a3b8; /* Lighter Gray/Blue */
+            --header-bg: #1e293b; /* Slightly lighter dark header */
+            --nav-bg: #0f172a; /* Darker Nav */
+            --nav-link: #e2e8f0;
+            --accent: #60a5fa; /* Lighter Blue Accent */
+            --card-bg: #1e293b;
+            --card-border: #334155; /* Darker Border */
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --footer-bg: #1e293b;
         }
 
         /* Respect system preference initially when there is no explicit setting */
         @media (prefers-color-scheme: dark) {
             :root:not([data-theme]) {
-                --bg: #0b0b0d;
-                --text: #e6eef6;
-                --muted: #9aa7b1;
-                --header-bg: #0f1720;
-                --nav-bg: #16202a;
-                --accent: #59a6ff;
-                --card-border: #22303a;
-                --footer-bg: #0f1720;
+                --bg: #0f172a;
+                --text: #e2e8f0;
+                --muted: #94a3b8;
+                --header-bg: #1e293b;
+                --nav-bg: #0f172a;
+                --nav-link: #e2e8f0;
+                --accent: #60a5fa;
+                --card-bg: #1e293b;
+                --card-border: #334155;
+                --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+                --footer-bg: #1e293b;
             }
         }
 
@@ -51,69 +61,132 @@
         }
 
         html, body {
-            height: 100%;
+            min-height: 100%; /* Use min-height to allow content to grow */
             background: var(--bg);
             color: var(--text);
             transition: background var(--transition), color var(--transition);
         }
 
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Poppins', Arial, sans-serif; /* Poppins added */
+            line-height: 1.7;
+            display: flex; /* For sticky footer-like layout */
+            flex-direction: column;
+            
+            /* Subtle Background Gradient for a "Prettier" look */
+            background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
+            background-repeat: no-repeat;
+            background-size: 100% 100vh; /* Gradient over the viewport height */
         }
+        
+        /* Typography */
+        h1, h2, h3 { color: var(--text); line-height: 1.2; margin-bottom: 0.5rem; }
+        h1 { font-size: 2.5rem; font-weight: 700; }
+        h2 { font-size: 2rem; font-weight: 600; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 0.2rem; margin-bottom: 1.5rem; }
+        h3 { font-size: 1.5rem; font-weight: 600; color: var(--accent); }
+        p { color: var(--muted); margin-bottom: 1rem; }
 
         header {
             background-color: var(--header-bg);
-            color: var(--text);
-            padding: 1rem;
+            padding: 1rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background var(--transition), box-shadow var(--transition);
         }
+        
         nav {
             background-color: var(--nav-bg);
-            padding: 1rem;
+            padding: 0.75rem 2rem;
+            text-align: center;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.1);
         }
         nav a {
-            color: #fff;
-            margin: 0 1rem;
+            color: var(--nav-link);
+            margin: 0 1.5rem;
             text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.25rem 0;
         }
+        /* Navigation Hover Underline Effect */
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width var(--transition);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        
         main {
-            padding: 2rem;
+            flex-grow: 1; /* Pushes footer to the bottom */
+            padding: 3rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
+        
+        section {
+            padding: 1.5rem 0;
+        }
+        
+        /* Project Card Styling with Hover Animation */
         .project {
             margin-bottom: 2rem;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-            border-color: var(--card-border);
-            transition: background var(--transition), border-color var(--transition);
+            padding: 1.5rem;
+            border: 1px solid var(--card-border);
+            border-radius: 8px; /* Slightly more rounded corners */
+            background-color: var(--card-bg);
+            box-shadow: var(--card-shadow);
+            
+            /* Enable transition for the hover effect */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color var(--transition), border-color var(--transition);
         }
+        
+        .project:hover {
+            /* Hover animation: lift the card and make shadow more prominent */
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            
+            /* Dark theme specific hover shadow */
+            html[data-theme="dark"] & {
+                box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            }
+        }
+        
         footer {
             background-color: var(--footer-bg);
-            color: var(--text);
+            color: var(--nav-link); /* Light text on dark footer */
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem;
             margin-top: 2rem;
+            transition: background var(--transition), color var(--transition);
         }
 
         /* theme toggle */
         .theme-toggle {
-            background: transparent;
+            background: var(--card-bg);
             color: var(--text);
-            border: 1px solid rgba(255,255,255,0.06);
-            padding: 0.35rem 0.6rem;
+            border: 1px solid var(--card-border);
+            padding: 0.35rem 0.8rem;
             border-radius: 9999px;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
+            font-weight: 600;
             transition: background var(--transition), color var(--transition), border-color var(--transition);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
         }
 
         .theme-toggle:focus {
@@ -121,7 +194,7 @@
             outline-offset: 3px;
         }
 
-        .theme-toggle svg { width: 1rem; height: 1rem; display:block; }
+        .theme-toggle svg { width: 1.1rem; height: 1.1rem; display:block; }
     </style>
 </head>
 <body>
@@ -144,22 +217,32 @@
     <main>
         <section id="about">
             <h2>About Me</h2>
-            <p>Welcome to my portfolio.</p>
+            <p>👋 Welcome to my portfolio! I'm a developer passionate about creating clean, modern, and user-friendly web experiences. I love working with CSS variables to make theme switching seamless and stylish.</p>
         </section>
+        
         <section id="projects">
-            <h2>Projects</h2>
+            <h2>Featured Projects</h2>
+            
             <div class="project">
-                <h3>Project 1</h3>
-                <p>Description of your project.</p>
+                <h3>Project 1: Modern Landing Page</h3>
+                <p>A responsive landing page built with modern CSS techniques including Flexbox and CSS Grid. Features dynamic content loading and smooth scroll animations. The card below demonstrates the hover animation effect!</p>
             </div>
+            
+            <div class="project">
+                <h3>Project 2: E-commerce Mockup</h3>
+                <p>A full-stack e-commerce mockup with a functional cart implemented using vanilla JavaScript. Focused heavily on accessibility and performance across all devices.</p>
+            </div>
+            
         </section>
+        
         <section id="contact">
-            <h2>Contact</h2>
-            <p>Email: your@email.com</p>
+            <h2>Get In Touch</h2>
+            <p>I'm currently available for freelance work and new opportunities. Don't hesitate to reach out!</p>
+            <p>Email: <a href="mailto:your@email.com" style="color:var(--accent);text-decoration:none;">your@email.com</a></p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 My Portfolio</p>
+        <p>Built with HTML, CSS, and a little JavaScript magic. &copy; 2024 My Portfolio</p>
     </footer>
     <script>
         (function () {
@@ -183,9 +266,10 @@
 
                 // update icon path (simple swap)
                 if (icon) {
+                    // Moon icon for Light theme, Sun icon for Dark theme (to suggest the *next* theme)
                     icon.innerHTML = isDark
-                        ? '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />'
-                        : '<path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.3 6.3l-1.4-1.4M7.1 6.1L5.7 4.7m12.6 0l-1.4 1.4M7.1 17.9l-1.4 1.4M12 7a5 5 0 100 10 5 5 0 000-10z" />';
+                        ? '<path d="M12 7a5 5 0 100 10 5 5 0 000-10zM12 2a.5.5 0 01.5.5V4m0 16v1.5a.5.5 0 01-1 0V20m10-8h-1.5a.5.5 0 010-1h1.5m-14 0H2a.5.5 0 010 1h1.5m14.364-7.864l-1.06-1.06M8.192 15.808l-1.06 1.06m8.192-8.192l1.06 1.06M8.192 8.192l1.06-1.06M12 3v2M12 19v2M19 12h-2M5 12H3M17.3 4.7l-1.4 1.4M6.7 17.3l-1.4 1.4M17.3 19.3l-1.4-1.4M6.7 6.7l-1.4-1.4M12 7a5 5 0 100 10 5 5 0 000-10z"/>'
+                        : '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />';
                 }
 
                 if (persist) {
@@ -216,6 +300,7 @@
 
             // toggle handler
             if (toggle) toggle.addEventListener('click', function () {
+                // Determine current theme based on the attribute OR system preference if no attribute is set
                 const current = htmlEl.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                 const next = current === 'dark' ? 'light' : 'dark';
                 setTheme(next, true);
